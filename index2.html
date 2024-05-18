@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Побудова еліпса</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+        .svg-container, .div-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    <script>
+        function drawEllipse() {
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+
+            // Побудова за допомогою canvas
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.ellipse(canvas.width / 2, canvas.height / 2, a, b, 0, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            // Побудова за допомогою SVG
+            const svg = document.getElementById('svg');
+            svg.innerHTML = `<ellipse cx="200" cy="200" rx="${a}" ry="${b}" style="fill:none;stroke:black;stroke-width:2" />`;
+
+            // Побудова за допомогою div
+            const divContainer = document.getElementById('divContainer');
+            divContainer.innerHTML = '';
+            const step = 0.01;
+            for (let t = 0; t <= 2 * Math.PI; t += step) {
+                const x = 200 + a * Math.cos(t);
+                const y = 200 + b * Math.sin(t);
+                const dot = document.createElement('div');
+                dot.style.width = '2px';
+                dot.style.height = '2px';
+                dot.style.backgroundColor = 'black';
+                dot.style.position = 'absolute';
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                divContainer.appendChild(dot);
+            }
+        }
+    </script>
+</head>
+<body>
+    <a href="index.html">Повернутися назад</a>
+    <h2>Побудова еліпса</h2>
+    <label for="a">Горизонтальна піввісь (a):</label>
+    <input type="number" id="a" value="100">
+    <br>
+    <label for="b">Вертикальна піввісь (b):</label>
+    <input type="number" id="b" value="50">
+    <br><br>
+    <button onclick="drawEllipse()">Побудувати</button>
+    <br><br>
+
+    <h3>Canvas</h3>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <br>
+
+    <h3>SVG</h3>
+    <div class="svg-container">
+        <svg id="svg" width="400" height="400"></svg>
+    </div>
+    <br>
+
+    <h3>Div</h3>
+    <div id="divContainer" class="div-container"></div>
+</body>
+</html>

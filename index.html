@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перегляд фотографій</title>
+    <script>
+        var photos = {
+            "les": new Image(),
+            "more": new Image(),
+            "gor": new Image()
+        };
+        photos["les"].src = "les.jpg";
+        photos["more"].src = "more.jpg";
+        photos["gor"].src = "gor.jpg";
+
+        function showPhoto(select) {
+            var selectedValue = select.value;
+            document.getElementById('photo').src = photos[selectedValue].src;
+        }
+    </script>
+</head>
+<body>
+    <h2>Перегляд фотографій</h2>
+    <select onchange="showPhoto(this)">
+        <option value="les">Ліс</option>
+        <option value="more">Море</option>
+        <option value="gor">Гори</option>
+    </select>
+    <br><br>
+    <img id="photo" src="les.jpg" alt="Фото" width="400" height="550">
+    <a href="index2.html">Друге завдання</a>
+</body>
+</html>
